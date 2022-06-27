@@ -47,6 +47,18 @@ main {
   font-size: 2rem;
 }
 
+.countNum {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.timeNum {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
 .countTitle {
   font-weight: bold;
   margin-bottom: 5px;
@@ -116,4 +128,9 @@ main {
 .title {
   font-size: 40px;
   margin: 0;
+}
+
+.trophyIcon svg {
+  height: 14px;
+  fill: orange;
 }
