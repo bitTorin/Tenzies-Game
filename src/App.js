@@ -97,12 +97,16 @@ export default function App() {
       setTenzies(false)
       setRecordCount(false)
       setRecordTime(false)
-      setDice(allNewDice())
-      setCounter(0)
-      setClock(0)
-      setTicking(false)
+      resetDice()
     }
     
+  }
+
+  function resetDice() {
+    setDice(allNewDice())
+    setCounter(0)
+    setClock(0)
+    setTicking(false)
   }
 
   const diceElements = dice.map(die => (
@@ -151,9 +155,17 @@ export default function App() {
       <div className="diceContainer">
         {diceElements}
       </div>
-      <button className="rollBtn" onClick={rollDice}>
-        {tenzies ? "New Game" : "Roll"}
-      </button>
+      
+        {
+          tenzies
+          ?
+          <button className="rollBtn" onClick={rollDice}>New Game</button>
+          :
+          <div className="buttons">
+            <button className="rollBtn" onClick={rollDice}>Roll</button>
+            <button className="resetBtn" onClick={resetDice}>Reset</button>
+          </div>
+        }
     </main>
   );
 }

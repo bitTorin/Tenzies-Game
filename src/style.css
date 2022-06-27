@@ -24,6 +24,10 @@ main {
   overflow: hidden;
   position: relative;
 }
+.buttons {
+  display: flex;
+  gap: 10px;
+}
 
 .diceContainer {
   display: grid;
@@ -116,6 +120,30 @@ main {
 }
 
 .rollBtn:active {
+  box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);
+}
+
+.resetBtn {
+  background-color: grey;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  height: 50px;
+  width: 150px;
+  font-size: 1.2rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.resetBtn:hover {
+  background-color: #5035FF;
+}
+
+.resetBtn:focus {
+  outline: none;
+}
+
+.resetBtn:active {
   box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);
 }
 
