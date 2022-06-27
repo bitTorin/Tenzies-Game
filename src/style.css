@@ -21,6 +21,8 @@ main {
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  overflow: hidden;
+  position: relative;
 }
 
 .diceContainer {
@@ -53,6 +55,36 @@ main {
 .timeTitle {
   font-weight: bold;
   margin-bottom: 5px;
+}
+
+.ribbon {
+  margin: 0;
+  padding: 0;
+  background: #ffa500;
+  color:white;
+  padding:1em 0;
+  position: absolute;
+  top:0;
+  right:0;
+  transform: translateX(30%) translateY(0%) rotate(45deg);
+  transform-origin: top left;
+}
+.ribbon:before,
+.ribbon:after {
+  content: '';
+  position: absolute;
+  top:0;
+  margin: 0 -1px; /* tweak */
+  width: 100%;
+  height: 100%;
+  background: orange;
+}
+.ribbon:before {
+  right:100%;
+}
+
+.ribbon:after {
+  left:100%;
 }
 
 .rollBtn {

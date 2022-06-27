@@ -1,5 +1,6 @@
 import React from "react"
 import Die from "./components/Die"
+import Banner from "./components/Banner"
 import {nanoid} from "nanoid"
 import Confetti from "react-confetti"
 
@@ -9,6 +10,24 @@ export default function App() {
   const [counter, setCounter] = React.useState(0)
   const [clock, setClock] = React.useState(0)
   const [ticking, setTicking] = React.useState(false)
+  const [color, setColor ] = React.useState('#ffa500')
+  const [fontWeight, setFontWeight] = React.useState('bold')
+  const [recordCount, setRecordCount] = React.useState(false)
+  const [recordTime, setRecordTime] = React.useState(false)
+  const [recordCountNum, setRecordCountNum] = React.useState(
+    () => JSON.parse(localStorage.getItem("recordCountNum")) || 1000000
+  )
+  const [recordTimeNum, setRecordTimeNum] = React.useState(
+    () => JSON.parse(localStorage.getItem("recordTimeNum")) || 1000000
+  )
+
+  React.useEffect(() => {
+    localStorage.setItem("recordCountNum", JSON.stringify(recordCountNum))
+  }, [recordCountNum])
+
+  React.useEffect(() => {
+    localStorage.setItem("recordTimeNum", JSON.stringify(recordTimeNum))
+  }, [recordTimeNum])
   
   React.useEffect(() => {
     const allHeld = dice.every(die => die.isHeld)
@@ -17,6 +36,14 @@ export default function App() {
     if (allHeld && allSame) {
       setTenzies(true)
       setTicking(false)
+      if (clock < recordTimeNum) {
+        setRecordTimeNum(clock)
+        setRecordTime(true)
+      }
+      if (counter < recordCountNum) {
+        setRecordCountNum(counter)
+        setRecordCount(true)
+      }
     }
   }, [dice])
 
@@ -68,6 +95,8 @@ export default function App() {
       setTicking(true)
     } else {
       setTenzies(false)
+      setRecordCount(false)
+      setRecordTime(false)
       setDice(allNewDice())
       setCounter(0)
       setClock(0)
@@ -83,35 +112,28 @@ export default function App() {
   return (
     <main>
       {tenzies && <Confetti />}
+      {(recordCount || recordTime) && <Banner />}
       <h1 className="title">Tenzies</h1>
       <p className="instructions">Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
       <div className="stats">
         <div className="counter">
-          <div className="countTitle">Counter: </div>
-          <div className="countNum">{counter}</div>
+          <div className="countTitle">Counter</div>
+          {recordCount ? <div className="countNum" style={{'color': color, 'fontWeight': fontWeight}}>{counter}</div> : <div className="countNum">{counter}</div>}
         </div>
         <div className="time">
-          <div className="timeTitle">Time: </div>
-          {
-            clock > 600000
-            ?
-            <div className="timeNum">
+          <div className="timeTitle">Time</div>
+          {recordTime ?
+            <div className="timeNum" style={{'color': color, 'fontWeight': fontWeight}}>
               <span>{("0" + Math.floor((clock / 60000) % 60)).slice(-2)}:</span>
-              <span>{("0" + Math.floor((clock / 1000) % 60)).slice(-2)}:</span>
+              <span>{("0" + Math.floor((clock / 1000) % 60)).slice(-2)}.</span>
               <span>{("0" + ((clock / 10) % 100)).slice(-2)}</span>
             </div>
-            : clock > 60000
-              ?
-              <div className="timeNum">
-                <span>{("0" + Math.floor((clock / 60000) % 60)).slice(-1)}:</span>
-                <span>{("0" + Math.floor((clock / 1000) % 60)).slice(-2)}:</span>
-                <span>{("0" + ((clock / 10) % 100)).slice(-2)}</span>
-              </div>
-              :
-              <div className="timeNum">
-                <span>{("0" + Math.floor((clock / 1000) % 60)).slice(-2)}:</span>
-                <span>{("0" + ((clock / 10) % 100)).slice(-2)}</span>
-              </div>
+            :
+            <div className="timeNum">
+              <span>{("0" + Math.floor((clock / 60000) % 60)).slice(-2)}:</span>
+              <span>{("0" + Math.floor((clock / 1000) % 60)).slice(-2)}.</span>
+              <span>{("0" + ((clock / 10) % 100)).slice(-2)}</span>
+            </div>
           }
         </div>
       </div>
