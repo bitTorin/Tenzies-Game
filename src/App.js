@@ -99,7 +99,6 @@ export default function App() {
       setRecordTime(false)
       resetDice()
     }
-    
   }
 
   function resetDice() {

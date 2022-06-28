@@ -24,6 +24,7 @@ main {
   overflow: hidden;
   position: relative;
 }
+
 .buttons {
   display: flex;
   gap: 10px;
@@ -38,17 +39,22 @@ main {
 
 .die {
   box-shadow: 0px 4px 4px 0px #00000040;
+  border:none;
+  border-radius: 10px;
   height: 50px;
   width: 50px;
-  border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  font-weight: bold;
+  font-size: 1.4rem;
 }
 
 .dieNum {
   font-size: 2rem;
+  font-weight: bold;
+  align-self: center;
 }
 
 .countNum {
